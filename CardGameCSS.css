@@ -1,0 +1,63 @@
+#titleSection {
+    grid-area: titleSection;
+}
+#mainSection {
+    grid-area: mainSection;
+}
+#decisionSection {
+    grid-area: decisionSection;
+}
+.grid-container {
+    display: grid;
+    grid-template-areas:
+    'titleSection titleSection titleSection'
+    'mainSection mainSection mainSection'
+    'decisionSection decisionSection decisionSection';
+}
+.grid-container > div {
+
+    text-align: center;
+    padding: 20px;
+    font-size: 20px;
+}
+#titleSection {
+    text-align: center;
+}
+#mainSection {
+    text-align: center;
+}
+#decisionSection {
+    text-align: center;
+}
+
+.card {
+    width: 50px;
+    height: auto;
+}
+
+#opponentSection{
+    grid-area: opponentSection;
+    text-align: center;
+}
+#deckSection{
+    grid-area: deckSection;
+    text-align: center;
+}
+#userSection{
+    grid-area: userSection;
+    text-align: center;
+}
+.mainGridContainer {
+    display: grid;
+    grid-template-areas:
+    'opponentSection'
+    'deckSection'
+    'userSection';
+}
+
+.mainGridContainer > div {
+
+    text-align: center;
+    padding: 20px;
+    font-size: 20px;
+}
