@@ -154,7 +154,13 @@ function displayUsersCards() {
     }
 }
 function cardClick(cardImage, card) {
+    const allCards = document.querySelectorAll(".card");
+    
+    for(let card of allCards){
+        card.classList.remove("clickedCard");
+    }
     console.log("Clicked on card:", card);
+    cardImage.classList.add("clickedCard");
 }
 
 
