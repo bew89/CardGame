@@ -61,3 +61,16 @@
     padding: 20px;
     font-size: 20px;
 }
+
+@media screen and (max-width: 600px){
+    .mainGridContainer > div {
+        font-size: 30px;
+    }
+    .grid-container > div {
+        font-size: 30px;
+    }
+    .card {
+        width: 50px;
+        height: auto;
+    }
+}
