@@ -31,12 +31,14 @@
 }
 
 .card {
+    padding: 2px;
+    margin: 3px;
     width: 50px;
     height: auto;
 }
 .clickedCard {
-    box-shadow: 0 0 20px blue;
-    border: 2px solid blue;
+    border-radius: 5px;
+    border: 2px solid goldenrod;
 }
 
 #opponentSection{

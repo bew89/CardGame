@@ -4,73 +4,76 @@ const arrayOfCards = [
     "HA", "H2", "H3", "H4", "H5", "H6", "H7", "H8", "H9", "H10", "HJ", "HQ", "HK",
     "SA", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9", "S10", "SJ", "SQ", "SK",
 ];
+const stateOfGame = {drawCard: false, discardCard: false, endGame: false};
+let drawnCard;
+let clickedCard;
 const backOfCard = {id: 1, value: "back", imagePath: 'cards/card_back.png'}
 
 const cardsData = {
 
     clubs: [
         //Club images
-        {id: 1, inUse: false,value: 'A', imagePath: 'cards/1_club.png'},
-        {id: 2, inUse: false,value: '2', imagePath: 'cards/2_club.png'},
-        {id: 3, inUse: false,value: '3', imagePath: 'cards/3_club.png'},
-        {id: 4, inUse: false,value: '4', imagePath: 'cards/4_club.png'},
-        {id: 5, inUse: false,value: '5', imagePath: 'cards/5_club.png'},
-        {id: 6, inUse: false,value: '6', imagePath: 'cards/6_club.png'},
-        {id: 7, inUse: false,value: '7', imagePath: 'cards/7_club.png'},
-        {id: 8, inUse: false,value: '8', imagePath: 'cards/8_club.png'},
-        {id: 9, inUse: false,value: '9', imagePath: 'cards/9_club.png'},
-        {id: 10, inUse: false,value: '10', imagePath: 'cards/10_club.png'},
-        {id: 11, inUse: false,value: 'J', imagePath: 'cards/11_club.png'},
-        {id: 12, inUse: false,value: 'Q', imagePath: 'cards/12_club.png'},
-        {id: 13, inUse: false,value: 'K', imagePath: 'cards/13_club.png'},
+        {id: 1, inUse: false, value: 'A', imagePath: 'cards/1_club.png'},
+        {id: 2, inUse: false, value: '2', imagePath: 'cards/2_club.png'},
+        {id: 3, inUse: false, value: '3', imagePath: 'cards/3_club.png'},
+        {id: 4, inUse: false, value: '4', imagePath: 'cards/4_club.png'},
+        {id: 5, inUse: false, value: '5', imagePath: 'cards/5_club.png'},
+        {id: 6, inUse: false, value: '6', imagePath: 'cards/6_club.png'},
+        {id: 7, inUse: false, value: '7', imagePath: 'cards/7_club.png'},
+        {id: 8, inUse: false, value: '8', imagePath: 'cards/8_club.png'},
+        {id: 9, inUse: false, value: '9', imagePath: 'cards/9_club.png'},
+        {id: 10, inUse: false, value: '10', imagePath: 'cards/10_club.png'},
+        {id: 11, inUse: false, value: 'J', imagePath: 'cards/11_club.png'},
+        {id: 12, inUse: false, value: 'Q', imagePath: 'cards/12_club.png'},
+        {id: 13, inUse: false, value: 'K', imagePath: 'cards/13_club.png'},
     ],
     diamonds: [
         //Diamond images
-        {id: 14, inUse: false,value: 'A', imagePath: 'cards/1_diamond.png'},
-        {id: 15, inUse: false,value: '2', imagePath: 'cards/2_diamond.png'},
-        {id: 16, inUse: false,value: '3', imagePath: 'cards/3_diamond.png'},
-        {id: 17, inUse: false,value: '4', imagePath: 'cards/4_diamond.png'},
-        {id: 18, inUse: false,value: '5', imagePath: 'cards/5_diamond.png'},
-        {id: 19, inUse: false,value: '6', imagePath: 'cards/6_diamond.png'},
-        {id: 20, inUse: false,value: '7', imagePath: 'cards/7_diamond.png'},
-        {id: 21, inUse: false,value: '8', imagePath: 'cards/8_diamond.png'},
-        {id: 22, inUse: false,value: '9', imagePath: 'cards/9_diamond.png'},
-        {id: 23, inUse: false,value: '10', imagePath: 'cards/10_diamond.png'},
-        {id: 24, inUse: false,value: 'J', imagePath: 'cards/11_diamond.png'},
-        {id: 25, inUse: false,value: 'Q', imagePath: 'cards/12_diamond.png'},
-        {id: 26, inUse: false,value: 'K', imagePath: 'cards/13_diamond.png'},
+        {id: 14, inUse: false, value: 'A', imagePath: 'cards/1_diamond.png'},
+        {id: 15, inUse: false, value: '2', imagePath: 'cards/2_diamond.png'},
+        {id: 16, inUse: false, value: '3', imagePath: 'cards/3_diamond.png'},
+        {id: 17, inUse: false, value: '4', imagePath: 'cards/4_diamond.png'},
+        {id: 18, inUse: false, value: '5', imagePath: 'cards/5_diamond.png'},
+        {id: 19, inUse: false, value: '6', imagePath: 'cards/6_diamond.png'},
+        {id: 20, inUse: false, value: '7', imagePath: 'cards/7_diamond.png'},
+        {id: 21, inUse: false, value: '8', imagePath: 'cards/8_diamond.png'},
+        {id: 22, inUse: false, value: '9', imagePath: 'cards/9_diamond.png'},
+        {id: 23, inUse: false, value: '10', imagePath: 'cards/10_diamond.png'},
+        {id: 24, inUse: false, value: 'J', imagePath: 'cards/11_diamond.png'},
+        {id: 25, inUse: false, value: 'Q', imagePath: 'cards/12_diamond.png'},
+        {id: 26, inUse: false, value: 'K', imagePath: 'cards/13_diamond.png'},
     ],
     hearts: [
         //Heart images
-        {id: 27, inUse: false,value: 'A', imagePath: 'cards/1_heart.png'},
-        {id: 28, inUse: false,value: '2', imagePath: 'cards/2_heart.png'},
-        {id: 29, inUse: false,value: '3', imagePath: 'cards/3_heart.png'},
-        {id: 30, inUse: false,value: '4', imagePath: 'cards/4_heart.png'},
-        {id: 31, inUse: false,value: '5', imagePath: 'cards/5_heart.png'},
-        {id: 32, inUse: false,value: '6', imagePath: 'cards/6_heart.png'},
-        {id: 33, inUse: false,value: '7', imagePath: 'cards/7_heart.png'},
-        {id: 34, inUse: false,value: '8', imagePath: 'cards/8_heart.png'},
-        {id: 35, inUse: false,value: '9', imagePath: 'cards/9_heart.png'},
-        {id: 36, inUse: false,value: '10', imagePath: 'cards/10_heart.png'},
-        {id: 37, inUse: false,value: 'J', imagePath: 'cards/11_heart.png'},
-        {id: 38, inUse: false,value: 'Q', imagePath: 'cards/12_heart.png'},
-        {id: 39, inUse: false,value: 'K', imagePath: 'cards/13_heart.png'},
+        {id: 27, inUse: false, value: 'A', imagePath: 'cards/1_heart.png'},
+        {id: 28, inUse: false, value: '2', imagePath: 'cards/2_heart.png'},
+        {id: 29, inUse: false, value: '3', imagePath: 'cards/3_heart.png'},
+        {id: 30, inUse: false, value: '4', imagePath: 'cards/4_heart.png'},
+        {id: 31, inUse: false, value: '5', imagePath: 'cards/5_heart.png'},
+        {id: 32, inUse: false, value: '6', imagePath: 'cards/6_heart.png'},
+        {id: 33, inUse: false, value: '7', imagePath: 'cards/7_heart.png'},
+        {id: 34, inUse: false, value: '8', imagePath: 'cards/8_heart.png'},
+        {id: 35, inUse: false, value: '9', imagePath: 'cards/9_heart.png'},
+        {id: 36, inUse: false, value: '10', imagePath: 'cards/10_heart.png'},
+        {id: 37, inUse: false, value: 'J', imagePath: 'cards/11_heart.png'},
+        {id: 38, inUse: false, value: 'Q', imagePath: 'cards/12_heart.png'},
+        {id: 39, inUse: false, value: 'K', imagePath: 'cards/13_heart.png'},
     ],
     spades: [
         //Spade images.
-        {id: 40, inUse: false,value: 'A', imagePath: 'cards/1_spade.png'},
-        {id: 41, inUse: false,value: '2', imagePath: 'cards/2_spade.png'},
-        {id: 42, inUse: false,value: '3', imagePath: 'cards/3_spade.png'},
-        {id: 43, inUse: false,value: '4', imagePath: 'cards/4_spade.png'},
-        {id: 44, inUse: false,value: '5', imagePath: 'cards/5_spade.png'},
-        {id: 45, inUse: false,value: '6', imagePath: 'cards/6_spade.png'},
-        {id: 46, inUse: false,value: '7', imagePath: 'cards/7_spade.png'},
-        {id: 47, inUse: false,value: '8', imagePath: 'cards/8_spade.png'},
-        {id: 48, inUse: false,value: '9', imagePath: 'cards/9_spade.png'},
-        {id: 49, inUse: false,value: '10', imagePath: 'cards/10_spade.png'},
-        {id: 50, inUse: false,value: 'J', imagePath: 'cards/11_spade.png'},
-        {id: 51, inUse: false,value: 'Q', imagePath: 'cards/12_spade.png'},
-        {id: 52, inUse: false,value: 'K', imagePath: 'cards/13_spade.png'}
+        {id: 40, inUse: false, value: 'A', imagePath: 'cards/1_spade.png'},
+        {id: 41, inUse: false, value: '2', imagePath: 'cards/2_spade.png'},
+        {id: 42, inUse: false, value: '3', imagePath: 'cards/3_spade.png'},
+        {id: 43, inUse: false, value: '4', imagePath: 'cards/4_spade.png'},
+        {id: 44, inUse: false, value: '5', imagePath: 'cards/5_spade.png'},
+        {id: 45, inUse: false, value: '6', imagePath: 'cards/6_spade.png'},
+        {id: 46, inUse: false, value: '7', imagePath: 'cards/7_spade.png'},
+        {id: 47, inUse: false, value: '8', imagePath: 'cards/8_spade.png'},
+        {id: 48, inUse: false, value: '9', imagePath: 'cards/9_spade.png'},
+        {id: 49, inUse: false, value: '10', imagePath: 'cards/10_spade.png'},
+        {id: 50, inUse: false, value: 'J', imagePath: 'cards/11_spade.png'},
+        {id: 51, inUse: false, value: 'Q', imagePath: 'cards/12_spade.png'},
+        {id: 52, inUse: false, value: 'K', imagePath: 'cards/13_spade.png'}
     ]
 }
 
@@ -85,6 +88,23 @@ const cardsData = {
 //     return array;
 // }
 
+function pickRandomCard() {
+    let dealtCard;
+    while (true) {
+        let suits = ["clubs", "diamonds", "hearts", "spades"]
+        let randomSuit = suits[Math.floor(Math.random() * 4)];
+        let randomCard = Math.floor(Math.random() * 13);
+
+        dealtCard = cardsData[randomSuit].at(randomCard);
+        if (dealtCard.inUse === false) {
+            dealtCard.inUse = true;
+            break;
+        }
+    }
+    return dealtCard;
+
+
+}
 
 let usersCards = [];
 let computersCards = [];
@@ -92,24 +112,23 @@ let computersCards = [];
 function dealCards() {
 
     for (let i = 0; i < 14; i++) {
-        let suits = ["clubs", "diamonds", "hearts", "spades"]
-        let randomSuit = suits[Math.floor(Math.random() * 4)];
-        let randomCard = Math.floor(Math.random() * 13);// + 1;
 
-        let dealtCard = cardsData[randomSuit].at(randomCard);
+        let dealtCard = pickRandomCard();
 
-        if(dealtCard.inUse === false) {
-            dealtCard.inUse = true;
-            if (i % 2 === 0) {
-                usersCards.push(dealtCard);
-            } else {
-                computersCards.push(dealtCard);
-            }
-            console.log("Card " + i + ", Suit: " + randomSuit + ", Card: " + dealtCard.id);
-        }else{
-            i--;
+        if (i % 2 === 0) {
+            usersCards.push(dealtCard);
+        } else {
+            computersCards.push(dealtCard);
         }
+        console.log("Card " + i + ", " + dealtCard);
+
     }
+    sortDecks();
+}
+
+function sortDecks() {
+    usersCards.sort((a, b) => a.id - b.id);
+    computersCards.sort((a, b) => a.id - b.id);
 }
 
 function displayDeck() {
@@ -121,6 +140,33 @@ function displayDeck() {
     cardImage.alt = card.value;
     deckSection.appendChild(cardImage);
 
+    cardImage.addEventListener("click", function () {
+        deckClick();
+    });
+}
+
+function deckClick() {
+    if (stateOfGame.drawCard === true) {
+        const allCards = document.querySelectorAll(".drawnCard");
+        if (allCards.length === 0) {
+            let displayedCard = pickRandomCard();
+            const deckSection = document.getElementById('deckSection');
+            const card = displayedCard;
+            const cardImage = document.createElement("img");
+            cardImage.src = card.imagePath;
+            cardImage.classList.add("card");
+            //card.classList.add("drawnCard");
+            cardImage.alt = card.value;
+            cardImage.addEventListener("click", function () {
+                cardClick(cardImage, card);
+            });
+            drawnCard = card;
+            console.log(drawnCard + " " + card);
+            deckSection.appendChild(cardImage);
+            clearStates();
+            stateOfGame.discardCard = true;
+        }
+    }
 }
 
 function displayOpponentsCards() {
@@ -130,9 +176,9 @@ function displayOpponentsCards() {
         const cardImage = document.createElement("img");
         try {
             cardImage.src = card.imagePath;
-       }catch (e) {
-       console.log(card.id);
-       }
+        } catch (e) {
+            console.log(card.id);
+        }
         cardImage.classList.add("card");
         cardImage.alt = card.value;
         opponentSections.appendChild(cardImage);
@@ -147,26 +193,77 @@ function displayUsersCards() {
         cardImage.src = card.imagePath;
         cardImage.classList.add("card");
         cardImage.alt = card.value;
-        cardImage.addEventListener("click", function() {
+        cardImage.addEventListener("click", function () {
             cardClick(cardImage, card);
         });
         usersSection.appendChild(cardImage);
     }
 }
+
 function cardClick(cardImage, card) {
+    //Goes through a loop and removes the selected colour off all cards
     const allCards = document.querySelectorAll(".card");
-    
-    for(let card of allCards){
+    for (let card of allCards) {
         card.classList.remove("clickedCard");
+        card.classList.remove("chosenCard");
     }
+    clickedCard = card;
+    console.log(clickedCard);
     console.log("Clicked on card:", card);
     cardImage.classList.add("clickedCard");
 }
 
+function setupButtons() {
+    const discardButton = document.getElementById("discardButton");
 
-// Call the displayCards function to display the card images
-//shuffleArray();
+    discardButton.addEventListener("click", function () {
+        discardSelectedCard();
+    });
+}
+
+function discardSelectedCard() {
+    if (stateOfGame.discardCard === true) {
+        const selectedCard = clickedCard;
+        const deckCard = drawnCard;
+
+        const userSection = document.getElementById("userSectionSection");
+        const deckSection = document.getElementById("deckSection");
+
+        const cardImage = document.createElement("img");
+        //Checks whether the card that has been clicked is from the users deck or is the card that was just drawn.
+        if (selectedCard.id === deckCard.id) {
+            const card = cardsData.find(card => card.id === selectedCard.id);
+            console.log(card);
+            console.log("Got here")
+            cardImage.src = card.imagePath;
+            cardImage.classList.remove("drawnCard");
+            deckSection.removeChild(cardImage);
+        } else {
+            const card = cardsData[selectedCard];
+            cardImage.src = card.imagePath;
+
+            userSection.removeChild(cardImage);
+            usersCards.remove(selectedCard);
+
+        }
+        selectedCard.classList.remove("card");
+        selectedCard.classList.remove("clickedCard");
+
+        clearStates();
+        stateOfGame.drawCard = true;
+    }
+}
+
+function clearStates() {
+    stateOfGame.drawCard = false;
+    stateOfGame.discardCard = false;
+    stateOfGame.endGame = false;
+}
+
+
+setupButtons()
 displayDeck();
 dealCards();
 displayUsersCards();
 displayOpponentsCards();
+stateOfGame.drawCard = true;
