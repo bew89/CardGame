@@ -175,10 +175,10 @@ function deckClick() {
     cardImage.classList.add('displayedCards');
     deckSection.append(cardImage);
 
-//         clearStates();
-//         stateOfGame.discardCard = true;
-//     }
-//
+    clearStates();
+    stateOfGame.discardCard = true;
+console.log(stateOfGame);
+
 }
 
 function cardClick(cardImage) {
@@ -189,29 +189,34 @@ function cardClick(cardImage) {
     }
     cardImage.classList.add('clickedCard');
 }
+function removeAllClickedCards(){
+    const allDisplayedCards = document.querySelectorAll('.displayedCards');
+    for (let card of allDisplayedCards) {
+        card.classList.remove('clickedCard');
+    }
+}
 
-//
-// function cardClick(cardImage, card) {
-//     //Goes through a loop and removes the selected colour off all cards
-//     const allCards = document.querySelectorAll(".card");
-//     for (let card of allCards) {
-//         card.classList.remove("clickedCard");
-//         card.classList.remove("chosenCard");
-//     }
-//     clickedCard = cardImage;
-//     cardImage.classList.add("clickedCard");
-//     console.log("clicked card below");
-//     console.log(clickedCard);
-// }
-//
-// function setupButtons() {
-//     const discardButton = document.getElementById("discardButton");
-//
-//     discardButton.addEventListener("click", function () {
-//         discardSelectedCard();
-//     });
-// }
-//
+function setupButtons() {
+    const discardButton = document.getElementById('discardButton');
+    discardButton.addEventListener("click", function () {
+        discardSelectedCard();
+    })
+}
+
+function discardSelectedCard() {
+    if (stateOfGame.discardCard === false) {
+        console.log("State of game is not in discard card yet");
+        return;
+    }
+    const selectedCard = document.querySelector('.clickedCard');
+    if (selectedCard === undefined || selectedCard === null) {
+        console.log("no card clicked");
+        return;
+    }
+    console.log(selectedCard)
+
+}
+
 // function discardSelectedCard() {
 //
 //     if (stateOfGame.discardCard === false) {
@@ -276,14 +281,15 @@ function cardClick(cardImage) {
 // }
 //
 //
-// function clearStates() {
-//     stateOfGame.drawCard = false;
-//     stateOfGame.discardCard = false;
-//     stateOfGame.endGame = false;
-// }
+function clearStates() {
+    stateOfGame.drawCard = false;
+    stateOfGame.discardCard = false;
+    stateOfGame.endGame = false;
+}
+
 //
 //
-// setupButtons()
+setupButtons()
 // displayDeck();
 // dealCards();
 // displayUsersCards();
