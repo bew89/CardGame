@@ -79,8 +79,8 @@
     .grid-container > div {
         font-size: 30px;
     }
-    .card {
-        width: 50px;
+    .displayedCards {
+        width: 35px;
         height: auto;
     }
 }

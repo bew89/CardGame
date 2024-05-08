@@ -173,11 +173,12 @@ function deckClick() {
         cardClick(cardImage, card);
     });
     cardImage.classList.add('displayedCards');
+    cardImage.classList.add('drawnCard');
     deckSection.append(cardImage);
 
     clearStates();
     stateOfGame.discardCard = true;
-console.log(stateOfGame);
+    console.log(stateOfGame);
 
 }
 
@@ -189,7 +190,8 @@ function cardClick(cardImage) {
     }
     cardImage.classList.add('clickedCard');
 }
-function removeAllClickedCards(){
+
+function removeAllClickedCards() {
     const allDisplayedCards = document.querySelectorAll('.displayedCards');
     for (let card of allDisplayedCards) {
         card.classList.remove('clickedCard');
@@ -204,98 +206,48 @@ function setupButtons() {
 }
 
 function discardSelectedCard() {
-    if (stateOfGame.discardCard === false) {
-        console.log("State of game is not in discard card yet");
-        return;
-    }
-    const selectedCard = document.querySelector('.clickedCard');
-    if (selectedCard === undefined || selectedCard === null) {
-        console.log("no card clicked");
-        return;
-    }
-    console.log(selectedCard)
+    while (true) {
+        if (stateOfGame.discardCard === false) {
+            console.log("State of game is not in discard card yet");
+            return;
+        }
+        const selectedCard = document.querySelector('.clickedCard');
+        const drawnCard = document.querySelector('.drawnCard');
+        if (selectedCard === undefined || selectedCard === null) {
+            console.log("no card clicked");
+            return;
+        }
+        console.log(selectedCard);
+        console.log(drawnCard);
 
+        const userSection = document.getElementById('userSection');
+        const deckSection = document.getElementById('deckSection');
+
+        if (selectedCard.src !== drawnCard.src) {
+            selectedCard.classList.remove("displayedCards");
+            userSection.removeChild(selectedCard);
+
+            userSection.append(drawnCard);
+            break;
+        }
+        if (selectedCard.src === drawnCard.src) {
+            drawnCard.classList.remove("drawnCard");
+            deckSection.removeChild(drawnCard);
+            break;
+        }
+    }
+    sortDecks();
+    clearStates();
+    stateOfGame.drawCard = true;
 }
 
-// function discardSelectedCard() {
-//
-//     if (stateOfGame.discardCard === false) {
-//         console.log("State of game is not discard card yet");
-//         return;
-//     }
-//     const selectedCard = clickedCard;
-//     if(selectedCard === undefined){
-//         console.log("No card clicked");
-//         return;
-//     }
-//     const deckCard = drawnCard;
-//     const userSection = document.getElementById("userSection");
-//     const deckSection = document.getElementById("deckSection");
-//     const cardImage = document.createElement("img");
-//
-//     //I want to test them and see if they are the same card
-//     if (selectedCard.imagePath === deckCard.imagePath) {
-//         //if they are the same card I just want to remove the deck card
-//        removeDeckCard(deckSection, deckCard)
-//     } else {
-//         //If they are different I want to remove the users card and then add the deck card to the users cards
-//         for (let element of userSection.children) {
-//             if (element.id === selectedCard.id) {
-//                 element.classList.remove("clickedCard");
-//                 element.classList.remove("card");
-//                 console.log("removed card")
-//                 deckSection.removeChild(element);
-//                 break;
-//             }
-//         }
-//         cardImage.src = deckCard.imagePath;
-//         cardImage.classList.add("card");
-//         cardImage.alt = deckCard.value;
-//
-//         cardImage.addEventListener("click", function () {
-//             cardClick(cardImage, deckCard);
-//         });
-//         userSection.appendChild(cardImage);
-//
-//         removeDeckCard(deckSection, deckCard)
-//     }
-//         clearStates();
-//         stateOfGame.drawCard = true;
-// }
-//
-// function removeDeckCard(deckSection, cardImage) {
-//
-// for (let element of deckSection.children) {
-//     console.log(element);
-//     console.log(backOfCard);
-//     if (element.src === backOfCard.imagePath) {
-//     continue;
-//     }
-//         console.log("Removing card")
-//         element.classList.remove("clickedCard");
-//         element.classList.remove("card");
-//         deckSection.removeChild(drawnCard);
-//         break;
-//     }
-//
-// }
-//
-//
 function clearStates() {
     stateOfGame.drawCard = false;
     stateOfGame.discardCard = false;
     stateOfGame.endGame = false;
 }
 
-//
-//
 setupButtons()
-// displayDeck();
-// dealCards();
-// displayUsersCards();
-// displayOpponentsCards();
-// stateOfGame.drawCard = true;
-
 dealCards();
 displayUserComputerCards();
 displayDeckOfCards();
