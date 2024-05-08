@@ -30,7 +30,7 @@
     text-align: center;
 }
 
-.card {
+.displayedCards {
     padding: 2px;
     margin: 3px;
     width: 50px;
@@ -39,6 +39,10 @@
 .clickedCard {
     border-radius: 5px;
     border: 2px solid goldenrod;
+}
+#discardButton {
+    width: 200px;
+    height: 40px;
 }
 
 #opponentSection{
