@@ -2,7 +2,7 @@ const stateOfGame = {drawCard: false, discardCard: false, endGame: false};
 let drawnCard;
 let clickedCard;
 const backOfCard = {id: 'B', imagePath: 'cards/card_back.png'}
-
+const table = {imagePath: '/Card Asset/Tables/table_green.png.png'};
 const cardsData = [
 
     {id: 'CA', inUse: false, imagePath: 'cards/1_club.png'},

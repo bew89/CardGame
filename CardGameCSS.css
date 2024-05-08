@@ -1,31 +1,45 @@
+body {
+    background-color: darkred;
+}
+
 #titleSection {
     grid-area: titleSection;
 }
+
 #mainSection {
     grid-area: mainSection;
 }
+
 #decisionSection {
     grid-area: decisionSection;
 }
+
 .grid-container {
     display: grid;
     grid-template-areas:
     'titleSection titleSection titleSection'
     'mainSection mainSection mainSection'
     'decisionSection decisionSection decisionSection';
+    background-image: url('Card Asset/Tables/table_blue.png');
+    background-size: 100% 100%; /* Adjust as needed */
+    padding: 20px;
 }
+
 .grid-container > div {
 
     text-align: center;
     padding: 20px;
     font-size: 20px;
 }
+
 #titleSection {
     text-align: center;
 }
+
 #mainSection {
     text-align: center;
 }
+
 #decisionSection {
     text-align: center;
 }
@@ -36,33 +50,40 @@
     width: 50px;
     height: auto;
 }
+
 .clickedCard {
     border-radius: 5px;
     border: 2px solid goldenrod;
 }
+
 #discardButton {
     width: 200px;
     height: 40px;
 }
 
-#opponentSection{
+#opponentSection {
     grid-area: opponentSection;
     text-align: center;
+
 }
-#deckSection{
+
+#deckSection {
     grid-area: deckSection;
     text-align: center;
 }
-#userSection{
+
+#userSection {
     grid-area: userSection;
     text-align: center;
 }
+
 .mainGridContainer {
     display: grid;
     grid-template-areas:
     'opponentSection'
     'deckSection'
     'userSection';
+
 }
 
 .mainGridContainer > div {
@@ -70,17 +91,21 @@
     text-align: center;
     padding: 20px;
     font-size: 20px;
+
 }
 
-@media screen and (max-width: 600px){
+@media screen and (max-width: 600px) {
     .mainGridContainer > div {
         font-size: 30px;
     }
+
     .grid-container > div {
         font-size: 30px;
     }
+
     .displayedCards {
         width: 35px;
         height: auto;
     }
 }
+
