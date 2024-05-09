@@ -1,5 +1,5 @@
 body {
-    background-color: darkred;
+    background-color: darkgreen;
 }
 
 #titleSection {
@@ -20,11 +20,6 @@ body {
     'titleSection titleSection titleSection'
     'mainSection mainSection mainSection'
     'decisionSection decisionSection decisionSection';
-    /*
-    background-image: url('Card Asset/Tables/table_blue.png');
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    */
     padding: 20px;
 }
 
@@ -45,6 +40,7 @@ body {
 
 #decisionSection {
     text-align: center;
+
 }
 
 .displayedCards {
@@ -72,13 +68,14 @@ body {
 
 #deckSection {
     grid-area: deckSection;
-    align-content: t;
+   text-align: center;
+
 }
 
 #userSection {
     grid-area: userSection;
     text-align: center;
-    background-color: blue;
+  
 }
 
 .mainGridContainer {
@@ -108,7 +105,7 @@ body {
     }
 
     .displayedCards {
-        width: 60px;
+        width: 55px;
         height: auto;
     }
 }
