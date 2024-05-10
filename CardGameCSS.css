@@ -110,3 +110,7 @@ body {
     }
 }
 
+.activePlayer {
+    border: 3px solid yellow;
+    border-radius: 5px;
+}

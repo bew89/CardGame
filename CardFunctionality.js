@@ -199,6 +199,8 @@ function setupButtons() {
 }
 
 function discardSelectedCard() {
+    const userSection = document.getElementById('userSection');
+    const deckSection = document.getElementById('deckSection');
     while (true) {
         if (stateOfGame.discardCard === false) {
             console.log("State of game is not in discard card yet");
@@ -213,8 +215,7 @@ function discardSelectedCard() {
         console.log(selectedCard);
         console.log(drawnCard);
 
-        const userSection = document.getElementById('userSection');
-        const deckSection = document.getElementById('deckSection');
+
 
         if (selectedCard.src !== drawnCard.src) {
             selectedCard.classList.remove("displayedCards");
@@ -232,12 +233,18 @@ function discardSelectedCard() {
     sortDecks();
     clearStates();
     stateOfGame.opponentTurn = true;
+    document.getElementById('opponentSection').classList.add('activePlayer')
+    document.getElementById('userSection').classList.remove('activePlayer');
     opponentsTurn();
 }
 
 function opponentsTurn() {
     if (stateOfGame.opponentTurn === true) {
+
+
+
         const deckSection = document.getElementById('deckSection');
+
         const cardImage = document.createElement("img");
         const drawnCard = randomCard();
         setTimeout(function () {
@@ -255,9 +262,14 @@ function opponentsTurn() {
                 console.log("DrawnCard removed");
 
                 handleOpponentCardReplace(drawnCard, deckSection);
+
+                document.getElementById('opponentSection').classList.remove('activePlayer')
+                document.getElementById('userSection').classList.add('activePlayer');
             }, 2000);
             clearStates();
             stateOfGame.drawCard = true;
+
+
         }, 2000);
 
 
@@ -297,7 +309,7 @@ console.log(computersCards);
     cardImage.alt = drawnCard.id;
     cardImage.classList.add('displayedCards');
     opponentSection.append(cardImage);
-    
+
 }
 
 function clearStates() {
