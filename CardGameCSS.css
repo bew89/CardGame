@@ -34,6 +34,30 @@ body {
     text-align: center;
 }
 
+#rulesButton {
+    width: 100%;
+    height: 50px;
+    text-align: left;
+
+    background-color: #0a800c;
+    color: white;
+    border: 1px solid black;
+}
+.rules {
+    text-align: left;
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+
+
+    background-color: #2fbd32; /* Light background color for visibility */
+    color: #333; /* Dark text color for readability */
+    border: 1px solid black; /* Light border for structure */
+
+}
+
+
+
 #mainSection {
     text-align: center;
 }
@@ -58,6 +82,7 @@ body {
 #discardButton {
     width: 200px;
     height: 40px;
+    margin: 10px;
 }
 
 #opponentSection {
@@ -68,7 +93,7 @@ body {
 
 #deckSection {
     grid-area: deckSection;
-   text-align: center;
+    text-align: center;
 
 }
 

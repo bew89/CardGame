@@ -196,6 +196,11 @@ function setupButtons() {
     discardButton.addEventListener("click", function () {
         discardSelectedCard();
     })
+
+    const rulesButton = document.getElementById('rulesButton');
+    rulesButton.addEventListener("click", function () {
+        showRules();
+    })
 }
 
 function discardSelectedCard() {
@@ -310,6 +315,15 @@ console.log(computersCards);
     cardImage.classList.add('displayedCards');
     opponentSection.append(cardImage);
 
+}
+
+function showRules(){
+const ruleText = document.querySelector('.rules');
+if(ruleText.style.display === "block"){
+    ruleText.style.display = "none";
+}else{
+    ruleText.style.display = "block";
+}
 }
 
 function clearStates() {
