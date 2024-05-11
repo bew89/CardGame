@@ -326,7 +326,7 @@ function opponentsTurn() {
                     const endGame = document.getElementById("endGame");
                     endGame.style.display = "block";
 
-                    window.addEventListener('pointerdown', function(event) {
+                    window.addEventListener('touchstart', function(event) {
                         if (event.target === endGame) {
                             endGame.style.display = "none";
                             turn = 0;
