@@ -1,8 +1,9 @@
+let turn = 0;
+
 const stateOfGame = {drawCard: false, discardCard: false, opponentTurn: false, endGame: false};
 let drawnCard;
 let clickedCard;
 const backOfCard = {id: 'B', imagePath: 'cards/card_back.png'}
-const table = {imagePath: '/Card Asset/Tables/table_green.png.png'};
 const cardsData = [
 
     {id: 'CA', value: 1, inUse: false, imagePath: 'cards/1_club.png'},
@@ -83,6 +84,7 @@ function randomCard() {
 }
 
 function dealCards() {
+    let numberOfCards = 7 - usersCards.length;
     for (let i = 0; i < 14; i++) {
 
         let dealtCard = randomCard();
@@ -93,6 +95,40 @@ function dealCards() {
         }
     }
     sortDecks();
+}
+
+function clearVisual() {
+    usersCards = [];
+    computersCards = [];
+
+    const opponentSection = document.getElementById('opponentSection');
+    const deckSection = document.getElementById('deckSection');
+    const userSection = document.getElementById('userSection');
+
+    // for(let child of opponentSection.children){
+    //     opponentSection.removeChild(child);
+    //     child.classList.remove('displayedCard');
+    // }
+    // for(let child of deckSection.children){
+    //     deckSection.removeChild(child);
+    //     child.classList.remove('displayedCard');
+    // }
+    // for(let child of userSection.children){
+    //     userSection.removeChild(child);
+    //     child.classList.remove('displayedCard');
+    // }
+
+//chatgpt code
+    while (opponentSection.firstChild) {
+        opponentSection.removeChild(opponentSection.firstChild);
+    }
+    while (deckSection.firstChild) {
+        deckSection.removeChild(deckSection.firstChild);
+    }
+    while (userSection.firstChild) {
+        userSection.removeChild(userSection.firstChild);
+    }
+
 }
 
 function sortDecks() {
@@ -149,6 +185,7 @@ function displayDeckOfCards() {
 }
 
 function deckClick() {
+    turn++;
     if (stateOfGame.drawCard === false) {
         return;
     }
@@ -181,6 +218,7 @@ function deckClick() {
     console.log(stateOfGame);
 
 }
+
 
 function cardClick(cardImage) {
 
@@ -221,7 +259,6 @@ function discardSelectedCard() {
         console.log(drawnCard);
 
 
-
         if (selectedCard.src !== drawnCard.src) {
             selectedCard.classList.remove("displayedCards");
             userSection.removeChild(selectedCard);
@@ -247,7 +284,6 @@ function opponentsTurn() {
     if (stateOfGame.opponentTurn === true) {
 
 
-
         const deckSection = document.getElementById('deckSection');
 
         const cardImage = document.createElement("img");
@@ -270,6 +306,36 @@ function opponentsTurn() {
 
                 document.getElementById('opponentSection').classList.remove('activePlayer')
                 document.getElementById('userSection').classList.add('activePlayer');
+
+
+                if (turn > 0) {
+                    //  const messageBox = document.getElementsByClassName('endGameMessage');
+                    let userScore = calculateUserScore();
+                    let opponentScore = calculateOpponentScore();
+
+                    let winner;
+                    if (userScore > opponentScore) {
+                        winner = "You";
+                    } else {
+                        winner = "Computer";
+                    }
+                    document.querySelector('.endGameMessage').innerText = "You scored " + userScore +
+                        ".\nThe computer scored " + opponentScore +
+                        ".\n " + winner + " won!" +
+                        "\nPress anywhere to continue.";
+                    const endGame = document.getElementById("endGame")
+                    endGame.style.display = "block";
+                    window.onclick = function (event) {
+                        if (event.target === endGame) {
+                            endGame.style.display = "none";
+                            turn = 0;
+                            startGame();
+
+                        }
+                    }
+                }
+
+
             }, 2000);
             clearStates();
             stateOfGame.drawCard = true;
@@ -281,8 +347,29 @@ function opponentsTurn() {
     }
 }
 
+function calculateUserScore() {
+    let score = 0;
+    for (let i = 0; i < usersCards.length; i++) {
+        console.log(usersCards[i])
+        score += usersCards[i].value;
+        console.log(score);
+    }
+    return score;
+}
+
+function calculateOpponentScore() {
+    console.log("COMPUTER LIST")
+    let score = 0;
+    for (let i = 0; i < computersCards.length; i++) {
+        console.log(computersCards[i])
+        score += computersCards[i].value;
+        console.log(score);
+    }
+    return score;
+}
+
 function handleOpponentCardReplace(drawnCard, deckSection) {
-console.log(computersCards);
+    console.log(computersCards);
     let smallestCard = computersCards[0];
     let indexOfCard = 0;
     //Grabs the smallest card in the deck to swap with the drawn card
@@ -293,7 +380,7 @@ console.log(computersCards);
             indexOfCard = i;
         }
     }
-   // smallestCard.classList.remove('displayedCards');
+
     computersCards[indexOfCard] = drawnCard;
     console.log("Smallest card is " + smallestCard.id);
 
@@ -317,13 +404,13 @@ console.log(computersCards);
 
 }
 
-function showRules(){
-const ruleText = document.querySelector('.rules');
-if(ruleText.style.display === "block"){
-    ruleText.style.display = "none";
-}else{
-    ruleText.style.display = "block";
-}
+function showRules() {
+    const ruleText = document.querySelector('.rules');
+    if (ruleText.style.display === "block") {
+        ruleText.style.display = "none";
+    } else {
+        ruleText.style.display = "block";
+    }
 }
 
 function clearStates() {
@@ -333,7 +420,13 @@ function clearStates() {
     stateOfGame.endGame = false;
 }
 
-setupButtons()
-dealCards();
-displayUserComputerCards();
-displayDeckOfCards();
+
+function startGame() {
+    clearVisual();
+    setupButtons()
+    dealCards();
+    displayUserComputerCards();
+    displayDeckOfCards();
+}
+
+startGame();
