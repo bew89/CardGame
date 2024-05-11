@@ -327,12 +327,13 @@ function opponentsTurn() {
                     endGame.style.display = "block";
 const window = document.querySelector('.grid-container');
                     window.addEventListener('click', function(event) {
-                        if (event.target === endGame) {
-                            endGame.style.display = "none";
-                            turn = 0;
-                            startGame();
-
-                        }
+                         if (event.target === endGame) {
+                        //     endGame.style.display = "none";
+                        //     turn = 0;
+                        //     startGame();
+                        //
+                             location.reload();
+                         }
                     });
                 }
 
