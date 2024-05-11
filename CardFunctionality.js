@@ -323,16 +323,17 @@ function opponentsTurn() {
                         ".\nThe computer scored " + opponentScore +
                         ".\n " + winner + " won!" +
                         "\nPress anywhere to continue.";
-                    const endGame = document.getElementById("endGame")
+                    const endGame = document.getElementById("endGame");
                     endGame.style.display = "block";
-                    window.addEventListener('pointerdown', function(event) {
+
+                    window.addEventListener('click', function(event) {
                         if (event.target === endGame) {
                             endGame.style.display = "none";
                             turn = 0;
                             startGame();
 
                         }
-                    }
+                    });
                 }
 
 
