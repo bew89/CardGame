@@ -325,7 +325,7 @@ function opponentsTurn() {
                         "\nPress anywhere to continue.";
                     const endGame = document.getElementById("endGame")
                     endGame.style.display = "block";
-                    window.onclick = function (event) {
+                    window.addEventListener('pointerdown', function(event) {
                         if (event.target === endGame) {
                             endGame.style.display = "none";
                             turn = 0;
