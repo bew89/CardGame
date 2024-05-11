@@ -325,8 +325,8 @@ function opponentsTurn() {
                         "\nPress anywhere to continue.";
                     const endGame = document.getElementById("endGame");
                     endGame.style.display = "block";
-
-                    window.addEventListener('touchstart', function(event) {
+const window = document.querySelector('.grid-container');
+                    window.addEventListener('click', function(event) {
                         if (event.target === endGame) {
                             endGame.style.display = "none";
                             turn = 0;
