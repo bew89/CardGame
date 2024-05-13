@@ -80,11 +80,11 @@ function randomCard() {
         }
 
     }
+  //  console.table(cardsData)
     return dealtCard;
 }
 
 function dealCards() {
-    let numberOfCards = 7 - usersCards.length;
     for (let i = 0; i < 14; i++) {
 
         let dealtCard = randomCard();
@@ -203,11 +203,11 @@ function deckClick() {
     }
 
     const card = randomCard();
-
+    drawnCard = card;
     cardImage.src = card.imagePath;
     cardImage.alt = card.id;
     cardImage.addEventListener("click", function () {
-        cardClick(cardImage, card);
+        cardClick(cardImage);
     });
     cardImage.classList.add('displayedCards');
     cardImage.classList.add('drawnCard');
@@ -244,31 +244,43 @@ function setupButtons() {
 function discardSelectedCard() {
     const userSection = document.getElementById('userSection');
     const deckSection = document.getElementById('deckSection');
+
     while (true) {
+
         if (stateOfGame.discardCard === false) {
             console.log("State of game is not in discard card yet");
             return;
         }
         const selectedCard = document.querySelector('.clickedCard');
-        const drawnCard = document.querySelector('.drawnCard');
+        const deckCard = document.querySelector('.drawnCard');
         if (selectedCard === undefined || selectedCard === null) {
             console.log("no card clicked");
             return;
         }
-        console.log(selectedCard);
-        console.log(drawnCard);
 
-
-        if (selectedCard.src !== drawnCard.src) {
+        if (selectedCard.src !== deckCard.src) {
             selectedCard.classList.remove("displayedCards");
             userSection.removeChild(selectedCard);
 
-            userSection.append(drawnCard);
+            let userCardIndex = 0;
+            for (let card of usersCards) {
+                console.log("card");
+                console.log(card);
+                console.log("selected card")
+                console.log(selectedCard)
+                if (card.id === selectedCard.alt) {
+                    console.log("in if")
+                    usersCards[userCardIndex] = drawnCard;
+                    break;
+                }
+                userCardIndex++;
+            }
+            userSection.append(deckCard);
             break;
         }
-        if (selectedCard.src === drawnCard.src) {
-            drawnCard.classList.remove("drawnCard");
-            deckSection.removeChild(drawnCard);
+        if (selectedCard.src === deckCard.src) {
+            deckCard.classList.remove("drawnCard");
+            deckSection.removeChild(deckCard);
             break;
         }
     }
@@ -295,12 +307,9 @@ function opponentsTurn() {
             cardImage.classList.add('displayedCards');
             deckSection.append(cardImage);
 
-            console.log("Opponent drew card");
-            console.log(drawnCard);
-
             setTimeout(function () {
                 deckSection.removeChild(cardImage);
-                console.log("DrawnCard removed");
+
 
                 handleOpponentCardReplace(drawnCard, deckSection);
 
@@ -308,8 +317,7 @@ function opponentsTurn() {
                 document.getElementById('userSection').classList.add('activePlayer');
 
 
-                if (turn > 0) {
-                    //  const messageBox = document.getElementsByClassName('endGameMessage');
+                if (turn > 5) {
                     let userScore = calculateUserScore();
                     let opponentScore = calculateOpponentScore();
 
@@ -325,15 +333,12 @@ function opponentsTurn() {
                         "\nPress anywhere to continue.";
                     const endGame = document.getElementById("endGame");
                     endGame.style.display = "block";
-const window = document.querySelector('.grid-container');
-                    window.addEventListener('click', function(event) {
-                         if (event.target === endGame) {
-                        //     endGame.style.display = "none";
-                        //     turn = 0;
-                        //     startGame();
-                        //
-                             location.reload();
-                         }
+                    const window = document.querySelector('.grid-container');
+                    window.addEventListener('click', function (event) {
+                        if (event.target === endGame) {
+
+                            location.reload();
+                        }
                     });
                 }
 
@@ -351,27 +356,29 @@ const window = document.querySelector('.grid-container');
 
 function calculateUserScore() {
     let score = 0;
-    for (let i = 0; i < usersCards.length; i++) {
+    for (let i = 0; i < 7; i++) {
         console.log(usersCards[i])
         score += usersCards[i].value;
-        console.log(score);
+
     }
+    console.log(score);
     return score;
 }
 
 function calculateOpponentScore() {
-    console.log("COMPUTER LIST")
+   console.log("COMPUTER LIST")
     let score = 0;
-    for (let i = 0; i < computersCards.length; i++) {
-        console.log(computersCards[i])
+    for (let i = 0; i < 7; i++) {
+      console.log(computersCards[i])
         score += computersCards[i].value;
-        console.log(score);
+
     }
+    console.log(score);
     return score;
 }
 
 function handleOpponentCardReplace(drawnCard, deckSection) {
-    console.log(computersCards);
+
     let smallestCard = computersCards[0];
     let indexOfCard = 0;
     //Grabs the smallest card in the deck to swap with the drawn card
@@ -384,14 +391,14 @@ function handleOpponentCardReplace(drawnCard, deckSection) {
     }
 
     computersCards[indexOfCard] = drawnCard;
-    console.log("Smallest card is " + smallestCard.id);
+
 
     const opponentSection = document.getElementById('opponentSection');
 
     const allDisplayedCards = document.querySelectorAll('.displayedCards');
     for (let card of allDisplayedCards) {
         if (card.alt === smallestCard.id) {
-            console.log("removed card");
+
             card.classList.remove('displayedCards');
             opponentSection.removeChild(card);
             break;
