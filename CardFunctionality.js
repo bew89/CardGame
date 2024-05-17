@@ -80,7 +80,7 @@ function randomCard() {
         }
 
     }
-  //  console.table(cardsData)
+    //  console.table(cardsData)
     return dealtCard;
 }
 
@@ -322,14 +322,16 @@ function opponentsTurn() {
                     let opponentScore = calculateOpponentScore();
 
                     let winner;
-                    if (userScore > opponentScore) {
-                        winner = "You";
+                    if (userScore === opponentScore) {
+                        winner = "You drew!";
+                    } else if (userScore > opponentScore) {
+                        winner = "You won!";
                     } else {
-                        winner = "Computer";
+                        winner = "Computer won!";
                     }
                     document.querySelector('.endGameMessage').innerText = "You scored " + userScore +
                         ".\nThe computer scored " + opponentScore +
-                        ".\n " + winner + " won!" +
+                        ".\n " + winner +
                         "\nPress anywhere to continue.";
                     const endGame = document.getElementById("endGame");
                     endGame.style.display = "block";
@@ -366,10 +368,10 @@ function calculateUserScore() {
 }
 
 function calculateOpponentScore() {
-   console.log("COMPUTER LIST")
+    console.log("COMPUTER LIST")
     let score = 0;
     for (let i = 0; i < 7; i++) {
-      console.log(computersCards[i])
+        console.log(computersCards[i])
         score += computersCards[i].value;
 
     }
