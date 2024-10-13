@@ -132,8 +132,8 @@ function clearVisual() {
 }
 
 function sortDecks() {
-    usersCards.sort((a, b) => a.id - b.id);
-    computersCards.sort((a, b) => a.id - b.id);
+    usersCards.sort((a, b) => a.value - b.value);
+    computersCards.sort((a, b) => a.value - b.value);
 }
 
 function displayUserComputerCards() {
