@@ -436,7 +436,7 @@ function generateObjective(){
     const randomIndex = Math.floor(Math.random() * gameObjective.length);
     //floor rounds the number, math random picks between 0 and 1, and gameObjective is the range
     //making it 0 to the amount of things in game objective
-    objectiveText.innerText = gameObjective[randomIndex].objective;
+    objectiveText.innerText = `Game Objective: ${gameObjective[randomIndex].objective}`;
     //assigns the objective for the game
     chosenObjective = gameObjective[randomIndex];
 }
