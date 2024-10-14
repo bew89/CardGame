@@ -62,7 +62,13 @@ const cardsData = [
     {id: 'SQ', value: 12, inUse: false, imagePath: 'cards/12_spade.png'},
     {id: 'SK', value: 13, inUse: false, imagePath: 'cards/13_spade.png'}
 ]
-
+//will be assigned the objective for further use and calculating extra score at the end
+let chosenObjective;
+//Holds the objectives
+const gameObjective = [
+    {objective: "Get 4 cards of same number", checker: checkFourSameNumber, points: 1000},
+    {objective: "Get 3 cards of the same suit", checker: checkThreeSameSuit, points: 5000}
+];
 let usersCards = [];
 let computersCards = [];
 
@@ -105,18 +111,6 @@ function clearVisual() {
     const deckSection = document.getElementById('deckSection');
     const userSection = document.getElementById('userSection');
 
-    // for(let child of opponentSection.children){
-    //     opponentSection.removeChild(child);
-    //     child.classList.remove('displayedCard');
-    // }
-    // for(let child of deckSection.children){
-    //     deckSection.removeChild(child);
-    //     child.classList.remove('displayedCard');
-    // }
-    // for(let child of userSection.children){
-    //     userSection.removeChild(child);
-    //     child.classList.remove('displayedCard');
-    // }
 
 //chatgpt code
     while (opponentSection.firstChild) {
@@ -128,7 +122,6 @@ function clearVisual() {
     while (userSection.firstChild) {
         userSection.removeChild(userSection.firstChild);
     }
-
 }
 
 function sortDecks() {
@@ -316,8 +309,8 @@ function opponentsTurn() {
                 document.getElementById('opponentSection').classList.remove('activePlayer')
                 document.getElementById('userSection').classList.add('activePlayer');
 
-
-                if (turn > 5) {
+                //DECIDES HOW MANY TURNS UNTIL GAME END
+                if (turn > 10) {
                     let userScore = calculateUserScore();
                     let opponentScore = calculateOpponentScore();
 
@@ -364,6 +357,9 @@ function calculateUserScore() {
 
     }
     console.log(score);
+    if (chosenObjective.checker(usersCards)){
+        score += chosenObjective.points;
+    }
     return score;
 }
 
@@ -376,6 +372,9 @@ function calculateOpponentScore() {
 
     }
     console.log(score);
+    if (chosenObjective.checker(computersCards)){
+        score += chosenObjective.points;
+    }
     return score;
 }
 
@@ -431,13 +430,42 @@ function clearStates() {
     stateOfGame.endGame = false;
 }
 
+function generateObjective(){
+    const objectiveText = document.getElementById("objective");
 
+    const randomIndex = Math.floor(Math.random() * gameObjective.length);
+    //floor rounds the number, math random picks between 0 and 1, and gameObjective is the range
+    //making it 0 to the amount of things in game objective
+    objectiveText.innerText = gameObjective[randomIndex].objective;
+    //assigns the objective for the game
+    chosenObjective = gameObjective[randomIndex];
+}
+function checkFourSameNumber(cards){
+    for(let i = 0; i < cards.length; i++) {
+        let cardCounter = 0;
+        let currentCard = cards[i];
+        for(let j = 0; j < cardCounter; j++) {
+            //if the card matches another cards value the count will increase
+            if(currentCard.value === cards[j].value){
+                cardCounter++;
+            }
+        }
+        if(cardCounter === 4){
+            return true;
+        }
+    }
+    return false;
+}
+function checkThreeSameSuit(){
+
+}
 function startGame() {
     clearVisual();
     setupButtons()
     dealCards();
     displayUserComputerCards();
     displayDeckOfCards();
+    generateObjective();
 }
 
 startGame();
